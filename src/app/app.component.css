@@ -1,0 +1,60 @@
+#newCriteria {
+    margin-left: -15px;
+}
+.input-group-text {
+  cursor: pointer;
+}
+#style, .input-group {
+  position: relative;
+  left: 70px;
+}
+
+.points {
+  position: relative;
+  left: 3px;
+}
+#submit {
+  margin: 0 40%;
+}
+legend {
+  margin: 0 30%;
+}
+.card-header {
+  padding: 0 !important;
+}
+.card-header button {
+
+  font-weight: bold;
+}
+.place {
+  margin: 0 15px;
+}
+table {
+  width: 100% !important;
+}
+.myThead tr{
+  background: black;
+  color: ghostwhite;
+  border: 2px solid black;
+  height: 100px;
+  padding: 0 30px;
+}
+.tbody {
+  border-bottom: 2px solid lightgrey;
+}
+.myTooltip {
+  position: relative;
+  left: 30%;
+}
+.invalid-tooltip {
+  display: inline-block;
+  position: relative;
+  left: 0%;
+}
+.shown {
+  display: block;
+}
+
+.criteria {
+  padding: 20px 0 0 0;
+}

@@ -1,0 +1,138 @@
+<div class="row">
+    <form class="col-xl-6 mt-5 ml-5"  #festivalForm="ngForm">
+        <fieldset class="form-group">
+          <legend class="mb-5">Текущ състезател</legend>
+          <div class="form-group row">
+            <label for="name" class="col-xl-3">Име и фамилия:</label>
+            <input type="text" class="form-control col-xl-8 ml-3" id="name" #inputName name="name" ngModel
+              placeholder="Въведи име" required>
+          </div>
+          <hr>
+          <div class="form-group row" *ngFor="let criteria of criterias">
+            <label class="col-xl-9" for={{criteria.title}}>{{ criteria.title }}</label>
+            <label for={{criteria.title}}>Точки:</label>
+            <input type="text" class="form-control col-xl-1 ml-3 points" id={{criteria.title}}
+              ngModel name={{criteria.title}} required>
+          </div>
+          <div class="form-group row">
+            <label for="style" class="col-xl-4">Стил на танца:</label>
+            <select class="form-control col-xl-5 ml-5" id="style" ngModel name="selectDanceStyle" required>
+              <option value="Класически">Класически</option>
+              <option value="Характерни">Характерни</option>
+              <option value="Народни">Народни</option>
+              <option value="Съвременни">Съвременни</option>
+            </select>
+          </div>
+          <hr>
+          <div class="form-group row">
+            <label for="newCriteria" class="col-xl-4 mr-5">Добави критерий:</label>
+            <div class="input-group col-xl-6">
+              <input type="text" class="form-control" id="newCriteria" #inputCriteria>
+              <div class="input-group-prepend">
+                <div class="input-group-text" (click)="addCriteria(inputCriteria)">+</div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="invalid-tooltip myTooltip" *ngIf="errors"
+          >{{ errors }}</div>
+          <button (click)="sum(festivalForm)" id="submit" class="btn btn-success mt-5">Сумирай</button>
+        </fieldset>
+      </form>
+
+      <div *ngIf="result" class="col-xl-5 mt-5 text-center">
+          <div class="invalid-tooltip" *ngIf="sameResults"
+          >{{ sameResults }}</div>
+          <div class="invalid-tooltip" *ngIf="sameResults2"
+          >{{ sameResults2 }}</div>
+          <div class="invalid-tooltip" *ngIf="sameResults3"
+          >{{ sameResults3 }}</div>
+        <h1>Резултати:</h1>
+          <div id="accordion">
+              <div class="card bg-success mb-3" (click)="shown1 = !shown1">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link text-light text-center" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <span class="place">Първо място</span>{{ firstPlaceCompetitor.name }}<span class="place">Стил: {{ firstPlaceCompetitor.style }}</span>
+                    </button>
+                  </h5>
+                </div>
+
+                <div [ngClass]='{shown: shown1}' id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body bg-white">
+                    Общо точки: {{ firstPlaceCompetitor.points }}
+                    <hr>
+                    <div *ngFor="let criteria of firstPlaceCompetitor.criterias">
+                      {{ criteria.title }}: {{ criteria.points }}
+                      <hr>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card bg-info mb-3" *ngIf="secondPlaceCompetitor">
+                <div class="card-header" id="headingTwo" (click)="shown2 = !shown2">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed text-light" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <span class="place">Второ място</span>{{ secondPlaceCompetitor.name }}<span class="place">Стил: {{ secondPlaceCompetitor.style }}</span>
+                    </button>
+                  </h5>
+                </div>
+                <div [ngClass]='{shown: shown2}' id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body bg-white">
+                      Общо точки: {{ secondPlaceCompetitor.points }}
+                      <hr>
+                      <div *ngFor="let criteria of secondPlaceCompetitor.criterias">
+                        {{ criteria.title }}: {{ criteria.points }}
+                        <hr>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card bg-warning mb-3" *ngIf="thirdPlaceCompetitor">
+                <div class="card-header" id="headingThree" (click)="shown3 = !shown3">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed text-light" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <span class="place">Трето място</span>{{ thirdPlaceCompetitor.name }}<span class="place">Стил: {{ thirdPlaceCompetitor.style }}</span>
+                    </button>
+                  </h5>
+                </div>
+                <div [ngClass]='{shown: shown3}' id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body bg-white">
+                      Общо точки: {{ thirdPlaceCompetitor.points }}
+                      <hr>
+                      <div *ngFor="let criteria of thirdPlaceCompetitor.criterias">
+                        {{ criteria.title }}: {{ criteria.points }}
+                        <hr>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-outline-dark" *ngIf="!showAllResults" (click)="showAllResults = !showAllResults">Виж всички резултати</button>
+            <button class="btn btn-outline-dark" *ngIf="showAllResults" (click)='showAllResults = !showAllResults'>Скрий резултатите</button>
+            <table *ngIf='showAllResults' class="mt-5 col-xl-12">
+              <thead class="myThead">
+                <tr>
+                  <th>Име и фамилия</th>
+                  <th>Стил</th>
+                  <th>Общ брой точки</th>
+                  <th>Точки по критерии</th>
+                </tr>
+              </thead>
+              <tr class="tbody" *ngFor="let competitor of sortedCompetitors">
+                <td>{{ competitor.name }}</td>
+                <td>{{ competitor.style }}</td>
+                <td>{{ competitor.points }}</td>
+                <td>
+                  <div class="criteria" *ngFor="let criteria of competitor.criterias">
+                    {{ criteria.title }} : {{ criteria.points }}
+                    <hr>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+      </div>
+
+</div>
