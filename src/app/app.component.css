@@ -1,3 +1,7 @@
+.row {
+  margin-right: 0px;
+}
+
 #newCriteria {
     margin-left: -15px;
 }
@@ -6,18 +10,19 @@
 }
 #style, .input-group {
   position: relative;
-  left: 70px;
+  left: 92px;
 }
 
 .points {
   position: relative;
-  left: 3px;
+  left: 15px;
 }
 #submit {
   margin: 0 40%;
 }
 legend {
-  margin: 0 30%;
+  text-align: center;
+  font-weight: bold;
 }
 .card-header {
   padding: 0 !important;
@@ -32,17 +37,17 @@ legend {
 table {
   width: 100% !important;
 }
-.myThead tr{
+.myThead tr, .myThead {
   background: black;
   color: ghostwhite;
-  border: 2px solid black;
+  border: 1px solid black;
   height: 100px;
   padding: 0 30px;
 }
 .tbody {
   border-bottom: 2px solid lightgrey;
 }
-.myTooltip {
+.invalid-tooltip.myTooltip {
   position: relative;
   left: 30%;
 }
@@ -51,10 +56,36 @@ table {
   position: relative;
   left: 0%;
 }
+
+.invalid-tooltip.criteriaError {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
 .shown {
   display: block;
 }
 
 .criteria {
   padding: 20px 0 0 0;
+}
+
+.newCriteria {
+  position: relative;
+  left: 83px;
+}
+tbody td {
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+  padding: 0 10px;
+  font-weight: bold;
+}
+tbody hr {
+  background: lightgreen;
+}
+
+h5 {
+  text-align: center;
+  margin-bottom: 50px;
 }

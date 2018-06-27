@@ -8,6 +8,7 @@
               placeholder="Въведи име" required>
           </div>
           <hr>
+          <h5>Критерии за оценяване</h5>
           <div class="form-group row" *ngFor="let criteria of criterias">
             <label class="col-xl-9" for={{criteria.title}}>{{ criteria.title }}</label>
             <label for={{criteria.title}}>Точки:</label>
@@ -26,8 +27,10 @@
           <hr>
           <div class="form-group row">
             <label for="newCriteria" class="col-xl-4 mr-5">Добави критерий:</label>
-            <div class="input-group col-xl-6">
+            <div class="input-group col-xl-6 newCriteria">
               <input type="text" class="form-control" id="newCriteria" #inputCriteria>
+              <div class="invalid-tooltip criteriaError" *ngIf="criteriaError"
+              >{{ criteriaError }}</div>
               <div class="input-group-prepend">
                 <div class="input-group-text" (click)="addCriteria(inputCriteria)">+</div>
               </div>
@@ -111,7 +114,7 @@
 
             <button class="btn btn-outline-dark" *ngIf="!showAllResults" (click)="showAllResults = !showAllResults">Виж всички резултати</button>
             <button class="btn btn-outline-dark" *ngIf="showAllResults" (click)='showAllResults = !showAllResults'>Скрий резултатите</button>
-            <table *ngIf='showAllResults' class="mt-5 col-xl-12">
+            <table *ngIf='showAllResults' class="mt-5 mb-2 col-xl-12">
               <thead class="myThead">
                 <tr>
                   <th>Име и фамилия</th>

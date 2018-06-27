@@ -25,6 +25,7 @@ export class AppComponent {
   shown3 = false;
 
   errors = null;
+  criteriaError = null;
 
   sameResults = null;
   sameResults2 = null;
@@ -38,6 +39,23 @@ export class AppComponent {
 
   addCriteria(inputCriteria) {
     if (inputCriteria.value === '') {
+      this.criteriaError = 'Моля въведете критерий.';
+      (() => {
+        setTimeout(() => {
+          this.criteriaError = null;
+        }, 2000);
+      })();
+      return;
+    }
+    if (this.competitors.length > 0) {
+      this.criteriaError = `Не може да добавяте критерии след като сте въвели състезатели.
+      За да въведете нов критерий е нужно да рестартирате програмата.
+      Текущите резултати ще бъдат изтрити.`;
+      (() => {
+        setTimeout(() => {
+          this.criteriaError = null;
+        }, 10000);
+      })();
       return;
     }
     const newCriteria = { title: inputCriteria.value };
